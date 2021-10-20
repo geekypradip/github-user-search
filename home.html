@@ -45,6 +45,10 @@
 .usercontainer{
     color:#fff
 }
+.card{
+    border: 1px solid white;
+    margin-top:4px;
+}
     </style>
 </head>
 <body>
@@ -53,6 +57,9 @@
           <input id="user" type="text" placeholder="search any user on github">
           <button id="search">search</button>
           <div class="usercontainer">
+
+          </div>
+
           <script>
               document.body.onload=()=>{
                   document.getElementById('search').addEventListener('click',()=>{
@@ -76,7 +83,23 @@
                   })
                  function makeui(users){
             console.log(users);
-            
+                    for(const u in users){
+                        var holder=document.createElement('div');
+                        holder.className="card"
+                        let userName=document.createElement("h3");
+                        userName.textContent="user Name:"+users[u].login;
+                        let id=document.createElement("p");
+                        id.textContent="user ID:"+users[u].id;
+                        let avatar=document.createElement('img');
+                        avatar.src=users[u].avatar_url;
+                        avatar.style.width="100px";
+                        let linkOfProfile=document.createElement('a');
+                        linkOfProfile.href=users[u].url;linkOfProfile.textContent="click here to get profile"
+                        linkOfProfile.style.color="green";
+                        holder.append(avatar,userName,id,linkOfProfile)
+                        document.querySelector('.usercontainer').append(holder)
+                    }
+                   
                  }
               }
           </script>
