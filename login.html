@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <style>
+        .container{
+            width:30%;
+            margin: auto;
+            margin-top: 50px;
+            border: 1px solid green;
+            text-align: center;
+            
+        }
+        .container>div,.container>#submit{
+            margin-top: 10px;
+        }
+        input{
+            border:none;
+            width:50%;
+            border-bottom: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LoGIN</h1>
+        <div >
+            <input type="email" placeholder="enter your email id" id="email">
+        </div>
+        <div>
+            <input type="password" placeholder="enter your password" id="password">
+        </div>
+        <button id="submit">submit</button>
+    </div>
+    <script>
+             document.body.onload=()=>{
+           document.getElementById('submit').addEventListener('click',()=>{
+              let email=document.getElementById('email').value;
+              let password=document.getElementById('password').value;
+              if(!email||!password)
+              {
+                  alert("all field requerd!!");return;
+              }
+             fetch("https://reqres.in/api/login",{
+                method: "POST",
+    // Adding body or contents to send
+    body: JSON.stringify({
+        // id:1,
+        email: email,
+        password: password
+        
+    }),
+     
+    // Adding headers to the request
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+             })
+             .then((res)=>{
+                 return res.json()
+             }).then((res)=>{
+                 console.log(res.token)
+                 handleUser(res)
+             }).catch((e)=>{
+                 console.log(e)
+             })
+           })
+           function handleUser(res){
+               if(res.token){
+                    //localStorage.setItem("token","hiii")
+                   window.location.replace("home.html")
+               }
+               else{
+                   alert(res.error)
+               }
+           }
+        }
+
+    //     "email": "eve.holt@reqres.in",
+    // "password": "cityslicka"
+    </script>
+</body>
+</html>
