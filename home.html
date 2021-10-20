@@ -83,6 +83,11 @@
                   })
                  function makeui(users){
             console.log(users);
+            if(users.length===0){
+                document.querySelector('.usercontainer').innerHTML=`<h1 style="color:red">user not found!!</h1>`;
+                return;
+            }
+            document.querySelector('.usercontainer').innerHTML=null;
                     for(const u in users){
                         var holder=document.createElement('div');
                         holder.className="card"
